@@ -1,7 +1,8 @@
 # blogWeb
 Website where you can write blogs, with edit and delete facility.
 
-Website is made in React+vite framework 
+Project is made in React+vite framework 
+This is fully Responsive web application.
 
 Instruction to Run the website:-
 1. open terminal in location where you want to add project
@@ -11,4 +12,4 @@ Instruction to Run the website:-
     3. npm i
     4. npm run dev
 
-The data is stored in local storage so there is no backend in this project
+The data is stored in local storage so there is no backend in this project.
