@@ -8,7 +8,6 @@ import '../Css/NewPost.css';
 const NewPost = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // Set today's date as default
   const [content, setContent] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const navigate = useNavigate();
@@ -36,12 +35,15 @@ const NewPost = () => {
       return;
     }
 
+    // Get the current date in YYYY-MM-DD format
+    const currentDate = new Date().toISOString().split('T')[0];
+
     const posts = getPosts();
     const newPost = {
       id: posts.length ? posts[posts.length - 1].id + 1 : 1,
       title,
       author,
-      date,
+      date: currentDate,
       content,
       thumbnail,
     };
@@ -52,44 +54,44 @@ const NewPost = () => {
 
   return (
     <div className="new-post-container">
-  <h1 className="new-post-title">Create New Post</h1>
-  <form className="new-post-form" onSubmit={handleSubmit}>
-    <div className="form-group">
-      <label>Title</label>
-      <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <h1 className="new-post-title">Create New Post</h1>
+      <form className="new-post-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Title</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Author</label>
+          <input
+            type="text"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Content</label>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label>Thumbnail</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleThumbnailChange}
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      {/* Include the ToastContainer component */}
+      <ToastContainer />
     </div>
-    <div className="form-group">
-      <label>Author</label>
-      <input
-        type="text"
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-      />
-    </div>
-    <div className="form-group">
-      <label>Content</label>
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
-    </div>
-    <div className="form-group">
-      <label>Thumbnail</label>
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleThumbnailChange}
-      />
-    </div>
-    <button type="submit">Submit</button>
-  </form>
-  <ToastContainer />
-</div>
-
   );
 };
 

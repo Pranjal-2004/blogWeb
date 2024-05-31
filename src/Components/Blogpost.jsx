@@ -15,21 +15,28 @@ const BlogPost = () => {
   }
 
   const handleDelete = () => {
-    deletePost(parseInt(id));
-    navigate('/');
+    const confirmed = window.confirm('Are you sure you want to delete this post?');
+    if (confirmed) {
+      deletePost(parseInt(id));
+      navigate('/');
+    }
   };
 
   return (
-    <div className="blog-post-container">
-      <h1 className="blog-post-title">{post.title}</h1>
-      <div className="blog-post-author-date">
-        <strong>Author:</strong> {post.author} | <strong>Date:</strong> {post.date}
-      </div>
-      {post.thumbnail && <img src={post.thumbnail} alt={post.title} className="blog-post-thumbnail" width={'40%'}/>}
-      <p className="blog-post-content">{post.content}</p>
-      <div className="blog-post-buttons">
-        <button onClick={handleDelete}>Delete Post</button>
-        <Link to={`/edit/${id}`} className="edit-post-link">Edit Post</Link>
+    <div className="blog-post-outer-container">
+      <div className="blog-post-container">
+        <h1 className="blog-post-title">{post.title}</h1>
+        <div className="blog-post-author-date">
+          <strong>Author:</strong> {post.author} | <strong>Date:</strong> {post.date}
+        </div>
+        {post.thumbnail && <img src={post.thumbnail} alt={post.title} className="blog-post-thumbnail" />}
+        <div className="blog-post-content-container">
+          <p className="blog-post-content">{post.content}</p>
+        </div>
+        <div className="blog-post-buttons">
+          <button onClick={handleDelete} className="delete-post-button">Delete Post</button>
+          <Link to={`/edit/${id}`} className="edit-post-link">Edit Post</Link>
+        </div>
       </div>
     </div>
   );

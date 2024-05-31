@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getPosts, updatePost } from '../utils/localStorage';
+import '../Css/NewPost.css';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -10,7 +11,6 @@ const EditPost = () => {
 
   const [title, setTitle] = useState(post?.title || '');
   const [author, setAuthor] = useState(post?.author || '');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]); // Current date
   const [content, setContent] = useState(post?.content || '');
   const [thumbnail, setThumbnail] = useState(post?.thumbnail || '');
 
@@ -31,11 +31,12 @@ const EditPost = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const currentDate = new Date().toISOString().split('T')[0];
     const updatedPost = {
       id: parseInt(id),
       title,
       author,
-      date,
+      date: currentDate,
       content,
       thumbnail,
     };
@@ -44,10 +45,10 @@ const EditPost = () => {
   };
 
   return (
-    <div className="new-post-container">
+    <div className='new-post-container'>
       <h1 className="new-post-title">Edit Post</h1>
-      <form className="new-post-form" onSubmit={handleSubmit}>
-        <div className="form-group">
+      <form className='new-post-form' onSubmit={handleSubmit}>
+        <div className='form-group'>
           <label>Title</label>
           <input
             type="text"
@@ -55,7 +56,7 @@ const EditPost = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <label>Author</label>
           <input
             type="text"
@@ -63,15 +64,14 @@ const EditPost = () => {
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
-        
-        <div className="form-group">
+        <div className='form-group'>
           <label>Content</label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <label>Thumbnail</label>
           <input
             type="file"
